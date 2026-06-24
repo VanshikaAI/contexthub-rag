@@ -1,4 +1,4 @@
-# contexthub-rag
+# Contexthub-rag
 # ContextHub
 
 ### Intelligent Document Question Answering System using Retrieval-Augmented Generation (RAG)
