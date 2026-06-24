@@ -1,236 +1,364 @@
-# Design Document: ContextHub - Intelligent Document Question Answering System
+# ContextHub
 
-## 1. Project Overview
+# Design Document
 
-ContextHub is a Retrieval-Augmented Generation (RAG) based document intelligence system that enables users to upload documents and ask natural language questions about their content. The system retrieves relevant information from uploaded documents and generates accurate, citation-backed answers using Large Language Models (LLMs).
+### A Retrieval-Augmented Generation Platform for Interactive Document Q&A
 
-The goal of the project is to bridge the gap between information availability and information accessibility by transforming static documents into an interactive knowledge source.
-
-Users will be able to:
-
-* Upload PDFs, notes, textbooks, and documents
-* Ask questions in natural language
-* Receive context-aware answers
-* View source citations used to generate responses
-
-The project is developed under the I2 – Document Q&A track of the Foundations of Applied Machine Learning segment.
+| Field                 | Details                                      |
+| --------------------- | -------------------------------------------- |
+| **Author**            | Vanshika Choudhary                           |
+| **Segment**           | Foundations of Applied Machine Learning      |
+| **Problem Statement** | I2 — Document Q&A (Official Catalog Problem) |
+| **Date**              | 24 June 2026                                 |
 
 ---
 
-## 2. Problem Statement
+# 1. One-Line Description
 
-Students, researchers, and professionals often work with large volumes of documents containing valuable information. Finding specific information manually can be time-consuming and inefficient.
-
-Traditional keyword search systems often fail to understand context and provide direct answers.
-
-The objective of this project is to build an intelligent document question-answering system that combines information retrieval and Large Language Models to provide accurate, context-aware, and citation-backed responses from uploaded documents.
+A Retrieval-Augmented Generation (RAG) platform that transforms PDFs, notes, textbooks, research papers, and technical documents into an interactive knowledge system capable of answering questions with accurate, context-aware, and citation-backed responses.
 
 ---
 
-## 3. Dataset
+# 2. Problem Statement
 
-### Dataset Type
+Students, researchers, and professionals regularly work with large collections of documents containing valuable information. Finding specific information manually is often time-consuming and inefficient, especially when working with lengthy textbooks, academic notes, technical documentation, or research papers.
 
-User-uploaded documents
+As a Computer Science student, I frequently work with study materials distributed across multiple PDFs and notes. I wanted to build a system that transforms static documents into an interactive knowledge platform where users can ask questions and receive direct, evidence-backed answers.
 
-Examples include:
+This project also serves as my foundation for learning Retrieval-Augmented Generation (RAG), Large Language Models (LLMs), Information Retrieval, and modern Generative AI systems, all of which I plan to extend further during my third year.
 
-* Academic notes
+---
+
+# 3. Data Source
+
+## Primary Source
+
+User-uploaded documents across the following categories:
+
+* Academic Notes and Study Material
 * Textbooks
-* Research papers
-* Study materials
-* Technical documentation
+* Research Papers
+* Technical Documentation and Manuals
+* Reports
 
-### Dataset Characteristics
+### Document Characteristics
 
 * Unstructured textual data
-* Multiple document formats
-* Variable document lengths
-* Domain-independent content
+* Variable document lengths (short notes to full textbooks)
+* Multi-domain coverage
+* Primarily PDF-based input
+* Dynamic, user-defined document collections
 
 ### Example Documents
 
-* Operating System Notes
+* Operating Systems Notes
 * Computer Organization Notes
 * Machine Learning Notes
-* Research Articles
+* Cloud Computing Notes
+* Research Articles (arXiv, IEEE, ACM)
 * Technical Manuals
 
 ---
 
-## 4. Proposed Approach
+# 4. Architecture Overview
 
-The system will follow a Retrieval-Augmented Generation pipeline.
+The pipeline below illustrates the end-to-end workflow of ContextHub, beginning with document upload and continuing through text extraction, chunking, embedding generation, vector storage, semantic retrieval, answer generation, evaluation, and final presentation within the Streamlit interface.
 
-### Pipeline
+## Architecture Diagram
 
-Document Upload → Text Extraction → Chunking → Embedding Generation → Vector Database Storage → Semantic Retrieval → Context Construction → LLM Response Generation → Citation Display
+![ContextHub Architecture](images/architecture.png)
 
-### Key Stages
+### Pipeline Stages
 
-#### Document Processing
+#### Document Sources
 
-Extract textual content from uploaded documents.
+The system accepts multiple types of user-uploaded documents:
+
+* PDFs
+* Academic Notes
+* Research Papers
+* Technical Documentation
+
+#### Text Extraction
+
+Text is extracted from uploaded documents using:
+
+* PyPDF2
+* pdfplumber
+
+This stage converts raw documents into machine-readable text.
 
 #### Chunking
 
-Split large documents into manageable semantic chunks.
+Large documents are divided into smaller chunks using LangChain text splitters.
+
+Features:
+
+* Configurable chunk size
+* Configurable overlap
+* Improved retrieval performance
 
 #### Embedding Generation
 
-Convert text chunks into vector representations.
+Each text chunk is converted into dense vector representations using Sentence Transformers (all-MiniLM-L6-v2).
 
-#### Vector Storage
+These embeddings capture semantic meaning and enable similarity search.
 
-Store embeddings in a vector database for efficient retrieval.
+#### ChromaDB Vector Store
 
-#### Retrieval
+Generated embeddings are stored in ChromaDB, which acts as a persistent vector database.
 
-Retrieve the most relevant document chunks based on user queries.
+Functions:
 
-#### Answer Generation
+* Embedding storage
+* Similarity indexing
+* Fast retrieval
 
-Provide context-aware answers using retrieved information and an LLM.
+#### Semantic Retrieval
 
-#### Citation Support
+When a user submits a query, the retriever performs top-k similarity search to identify the most relevant document chunks.
 
-Display the source sections used to generate answers.
+#### Context Construction
 
----
+Retrieved chunks are ranked and combined with source metadata to create contextual information for the language model.
 
-## 5. Technical Stack
+#### Large Language Model (LLM)
 
-| Component            | Technology                   |
-| -------------------- | ---------------------------- |
-| Programming Language | Python                       |
-| Frontend             | Streamlit                    |
-| Document Processing  | PyPDF2 / LangChain           |
-| Embeddings           | Sentence Transformers        |
-| Vector Database      | ChromaDB                     |
-| Retrieval Framework  | LangChain                    |
-| Large Language Model | OpenAI GPT / Open Source LLM |
-| Evaluation           | RAGAS / Manual Evaluation    |
-| Visualization        | Matplotlib                   |
-| Version Control      | Git & GitHub                 |
+The retrieved context is provided to an LLM such as:
 
----
+* OpenAI GPT
+* Mistral
+* LLaMA
 
-## 6. Model and Architecture Selection
+The model generates answers grounded in the retrieved document content.
 
-A Retrieval-Augmented Generation architecture has been selected because it enables the system to generate answers using retrieved document content rather than relying solely on the LLM's internal knowledge.
+#### Answer and Source Citations
 
-Benefits include:
+The system returns:
 
-* Reduced hallucinations
-* Citation-backed responses
-* Domain adaptability
-* Better accuracy on document-specific queries
-* Scalability across different document collections
+* Natural language answers
+* Source citations
+* Supporting document references
 
----
+This improves transparency and reduces hallucinations.
 
-## 7. Evaluation Metrics
+#### RAGAS Evaluation
 
-The system will be evaluated using:
+Response quality will be evaluated using:
 
-* Answer Relevance
 * Context Precision
 * Context Recall
 * Faithfulness
-* Citation Accuracy
-* Response Quality
+* Answer Relevance
 
-Additionally, manual testing will be performed using predefined question-answer pairs.
+#### Streamlit Interface
 
----
-
-## 8. Mini Extension
-
-### Multi-Document Comparison
-
-The system will support comparison across multiple uploaded documents.
-
-Example:
-
-Users can upload two versions of notes or documents and ask:
-
-* What changed?
-* What topics were added?
-* What topics were removed?
-
-Benefits:
-
-* Enhanced document understanding
-* Improved analytical capabilities
-* Better support for academic and professional workflows
-
----
-
-## 9. Deployment Plan
-
-A Streamlit web application will be developed where users can:
+The final user interface allows users to:
 
 * Upload documents
-* Manage document collections
 * Ask questions
-* Receive answers with citations
+* Compare documents
+* View answers with citations
+* Interact with the system through a web application
+
+---
+
+# 5. Tech Stack
+
+| Component            | Choice                                   | Why                                            |
+| -------------------- | ---------------------------------------- | ---------------------------------------------- |
+| Programming Language | Python 3.11+                             | Industry standard for AI and Machine Learning  |
+| Frontend             | Streamlit                                | Fast and lightweight deployment                |
+| Document Processing  | PyPDF2 / pdfplumber                      | Reliable PDF text extraction                   |
+| Framework            | LangChain                                | RAG workflow orchestration                     |
+| Embeddings           | Sentence Transformers (all-MiniLM-L6-v2) | Efficient semantic embeddings that run locally |
+| Vector Database      | ChromaDB                                 | Lightweight, open-source, and persistent       |
+| LLM                  | OpenAI GPT-3.5/4 or Mistral/LLaMA        | Answer generation                              |
+| Evaluation           | RAGAS + Manual Testing                   | RAG quality evaluation                         |
+| Visualization        | Matplotlib                               | Analysis and reporting                         |
+| Version Control      | Git & GitHub                             | Collaboration and tracking                     |
+
+**Note:** pdfplumber has been added alongside PyPDF2 because it handles tables, columns, and complex layouts more effectively. Chunk size and overlap parameters will be tuned experimentally during Week 2.
+
+---
+
+# 6. Model and Architecture Selection
+
+A Retrieval-Augmented Generation (RAG) architecture has been selected because it grounds responses in retrieved evidence from the user's documents rather than relying solely on the LLM's pre-trained knowledge.
+
+### Why RAG?
+
+* Reduces hallucinations by grounding answers in source documents
+* Improves reliability and trustworthiness
+* Provides source citations for verification
+* Works across multiple domains without retraining
+* Adapts to user-provided document collections
+* Scales efficiently to large document repositories
+
+### Why Sentence Transformers?
+
+* Runs locally without API costs during development
+* Strong semantic similarity performance
+* Lightweight enough for deployment on Streamlit Community Cloud
+
+---
+
+# 7. Week 1 Scope
+
+The Week 1 objective focuses on building the ingestion pipeline.
+
+### Tasks
+
+* Set up GitHub repository and project structure
+* Create and version project documentation
+* Configure the development environment
+* Study RAG architecture and chunking strategies
+* Build the PDF ingestion pipeline using PyPDF2 and pdfplumber
+* Extract text from at least three sample PDFs
+* Validate that extracted text is clean and suitable for downstream processing
+
+### Success Criteria
+
+A PDF can be uploaded, processed, and its text successfully extracted and chunked for downstream embedding generation.
+
+---
+
+# 8. Evaluation Metrics
+
+| Category   | Metric            | Description                                        |
+| ---------- | ----------------- | -------------------------------------------------- |
+| Retrieval  | Context Precision | Fraction of retrieved chunks that are relevant     |
+| Retrieval  | Context Recall    | Fraction of relevant chunks successfully retrieved |
+| Generation | Answer Relevance  | How well the answer addresses the question         |
+| Generation | Faithfulness      | Whether claims are grounded in retrieved context   |
+| Generation | Citation Accuracy | Correct attribution to source documents            |
+| Manual     | Correctness       | Factual accuracy verified by human review          |
+| Manual     | Completeness      | Coverage of key points                             |
+| Manual     | Readability       | Clarity and coherence of responses                 |
+
+Evaluation will be conducted using predefined question-answer pairs generated from uploaded documents and assessed using both RAGAS and manual review.
+
+---
+
+# 9. Mini Extension (Week 3)
+
+## Multi-Document Comparison
+
+The system will support querying across multiple documents simultaneously.
+
+### Example Use Case
+
+Upload two versions of the same Operating Systems notes and ask:
+
+* What topics were added in Version 2?
+* What topics were removed?
+* What changed between the two versions?
+
+### Benefits
+
+* Enhanced document analysis
+* Better academic review workflows
+* Foundation for future knowledge graph integration
+
+---
+
+# 10. Risks and Open Questions
+
+* Chunk size selection may significantly impact retrieval quality.
+* Embedding model choice may affect semantic search performance across domains.
+* Large documents may increase retrieval latency.
+* Open-source LLMs may produce lower-quality responses than hosted APIs.
+* Evaluating answer quality objectively remains a challenging problem.
+* pdfplumber may not perfectly handle scanned PDFs; OCR support is deferred to future versions.
+
+---
+
+# 11. Non-Goals (Milestone 1)
+
+The following features are intentionally out of scope for the first milestone:
+
+* OCR support for scanned documents
+* Voice interaction
+* Fine-tuned custom LLMs
+* Multi-modal image understanding
+* Agentic workflows
+
+These features are reserved for future iterations.
+
+---
+
+# 12. Definition of Done (Milestone 1)
+
+The project will be considered complete for Milestone 1 when:
+
+* Users can upload PDF documents through the Streamlit interface
+* Text extraction works successfully
+* Documents are chunked with configurable size and overlap
+* Embeddings are generated using Sentence Transformers
+* Chunks are stored and retrievable from ChromaDB
+* Users can ask natural-language questions
+* Relevant context is retrieved successfully
+* The LLM generates grounded answers
+* Source citations are displayed
+* The application is publicly deployed
+* A basic RAGAS evaluation report is produced
+
+---
+
+# 13. Deployment Plan
+
+A Streamlit web application will serve as the primary user interface.
+
+Users will be able to:
+
+* Upload documents
+* Ask questions
+* Receive citation-backed answers
 * Compare multiple documents
 
-The application will be deployed on a public cloud platform.
+The final application will be deployed on Streamlit Community Cloud.
+
+ChromaDB will be persisted within the deployed application environment for demonstration purposes.
 
 ---
 
-## 10. Future Scope
+# 14. Future Scope
 
-Possible future enhancements include:
-
-* Multi-modal document understanding
-* OCR support for scanned PDFs
-* Knowledge graph integration
-* Personalized learning assistant
+* OCR support for scanned and image-based PDFs
 * Voice-based document interaction
+* Multi-modal document understanding
+* Knowledge Graph integration
+* Personalized learning assistant mode
 * Agentic RAG workflows
-* Fine-tuned domain-specific models
+* Fine-tuned domain-specific embedding models
+* Research paper analysis assistant
 
 ---
 
-## 11. Timeline
+# 15. Third-Year Extension Path
 
-### Week 1
+ContextHub can evolve into a comprehensive knowledge intelligence platform by incorporating:
 
-* Literature review
-* RAG architecture study
-* Repository setup
-* Document ingestion pipeline
+* Multi-document reasoning across large corpora
+* Research assistance with citation graph navigation
+* Academic tutoring workflows
+* Agent-based task execution
+* Personal knowledge management with memory
+* Domain-specific AI assistants
+* Enterprise document intelligence capabilities
 
-### Week 2
-
-* Chunking implementation
-* Embedding generation
-* Vector database integration
-
-### Week 3
-
-* Retrieval pipeline
-* LLM integration
-* Citation generation
-
-### Week 4
-
-* Multi-document comparison
-* Streamlit deployment
-* Evaluation framework
-
-### Week 5
-
-* Testing
-* Documentation
-* Reflection report
-* Resume bullets
-* Final showcase
+This provides a clear pathway from a foundational RAG project to advanced AI systems and internship-ready portfolio work.
 
 ---
 
-## 12. Expected Outcome
+# 16. Expected Outcome
 
-The final system will transform static documents into an interactive knowledge platform capable of providing accurate, context-aware, and citation-backed answers. The project will demonstrate practical applications of Retrieval-Augmented Generation, Large Language Models, Information Retrieval, Vector Databases, and Applied Machine Learning in real-world knowledge management systems.
+The final system will transform static documents into an interactive knowledge platform capable of providing accurate, context-aware, and citation-backed answers to natural-language questions.
+
+The project will demonstrate practical end-to-end application of:
+
+* Retrieval-Augmented Generation (RAG)
+* Large Language Models (LLMs)
+* Vector Databases and Similarity Search
+* Information Retrieval and Semantic Search
+* Applied Machine Learning in a real-world product
