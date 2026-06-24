@@ -1,4 +1,3 @@
-# Contexthub-rag
 # ContextHub
 
 ### Intelligent Document Question Answering System using Retrieval-Augmented Generation (RAG)
@@ -13,17 +12,23 @@
 
 **Problem Statement:** I2 – Document Q&A
 
-**Duration:** 22 June 2026 – 26 July 2026
+**Internship Duration:** 22 June 2026 – 26 July 2026
+
+---
+
+## Project Status
+
+🚧 Currently in the Design and Planning Phase
 
 ---
 
 ## Project Overview
 
-ContextHub is a Retrieval-Augmented Generation (RAG) based document intelligence platform that allows users to upload documents and ask natural language questions about their content.
+ContextHub is a Retrieval-Augmented Generation (RAG) based document intelligence platform that enables users to upload documents and ask natural language questions about their content.
 
 Instead of manually searching through lengthy notes, textbooks, research papers, or technical documents, users can simply ask questions and receive accurate, context-aware answers supported by citations from the original documents.
 
-The system combines document retrieval techniques with Large Language Models (LLMs) to provide reliable responses while reducing hallucinations.
+The system combines semantic retrieval techniques with Large Language Models (LLMs) to provide reliable responses while reducing hallucinations and improving answer quality.
 
 ---
 
@@ -31,9 +36,9 @@ The system combines document retrieval techniques with Large Language Models (LL
 
 Large documents often contain valuable information that is difficult to locate quickly.
 
-Traditional keyword search systems require users to manually scan multiple pages to find relevant content.
+Traditional keyword-based search systems require users to manually browse multiple pages to find relevant information. This process can be time-consuming and inefficient, especially when dealing with large document collections.
 
-ContextHub aims to solve this problem by transforming static documents into an interactive knowledge source where users can ask questions and receive direct answers backed by evidence from the uploaded documents.
+ContextHub aims to solve this problem by transforming static documents into an interactive knowledge platform where users can ask questions and receive direct, citation-backed answers generated from the uploaded documents.
 
 ---
 
@@ -42,18 +47,19 @@ ContextHub aims to solve this problem by transforming static documents into an i
 ### Current Features
 
 * Document upload
-* Text extraction
+* Text extraction from documents
 * Semantic search
-* Question answering
-* Citation-based responses
+* Natural language question answering
+* Citation-backed responses
 
 ### Planned Features
 
 * Multi-document comparison
-* Document collections
+* Document collections and organization
 * Improved retrieval quality
-* Evaluation framework
+* Evaluation framework for response quality
 * Cloud deployment
+* Enhanced user experience
 
 ---
 
@@ -66,13 +72,13 @@ Text Extraction
         ↓
 Chunking
         ↓
-Embeddings
+Embedding Generation
         ↓
 Vector Database
         ↓
 Retriever
         ↓
-LLM
+Large Language Model (LLM)
         ↓
 Answer + Citations
 ```
@@ -89,7 +95,7 @@ Answer + Citations
 | Framework            | LangChain                    |
 | Embeddings           | Sentence Transformers        |
 | Vector Database      | ChromaDB                     |
-| LLM                  | OpenAI GPT / Open Source LLM |
+| Large Language Model | OpenAI GPT / Open Source LLM |
 | Version Control      | Git & GitHub                 |
 
 ---
@@ -99,12 +105,11 @@ Answer + Citations
 ```text
 ContextHub/
 │
-├── app/
-├── src/
-├── data/
 ├── docs/
-├── tests/
-├── requirements.txt
+│   └── design_doc.md
+│
+├── .gitignore
+│
 └── README.md
 ```
 
@@ -112,7 +117,7 @@ ContextHub/
 
 ## Expected Learning Outcomes
 
-Through this project I aim to learn:
+Through this project, I aim to learn:
 
 * Retrieval-Augmented Generation (RAG)
 * Large Language Models (LLMs)
@@ -122,33 +127,37 @@ Through this project I aim to learn:
 * Prompt Engineering
 * Evaluation of AI Systems
 * Deployment using Streamlit
+* End-to-End AI Application Development
 
 ---
 
 ## What I Learned This Week
 
 * Learned the difference between traditional search and semantic retrieval.
-* Understood the fundamentals of Retrieval-Augmented Generation.
+* Understood the fundamentals of Retrieval-Augmented Generation (RAG).
 * Explored how embeddings convert text into vector representations.
 * Studied the role of vector databases in efficient document retrieval.
 * Finalized the project scope and high-level system architecture.
+* Selected the technology stack and development roadmap.
 
 ---
 
 ## Future Scope
 
-Potential future improvements include:
+Potential future enhancements include:
 
 * OCR support for scanned documents
-* Voice-based interaction
+* Voice-based document interaction
 * Knowledge graph integration
 * Agentic RAG workflows
-* Personalized AI learning assistant
+* Personalized AI learning assistants
 * Multi-modal document understanding
+* Fine-tuned domain-specific models
 
 ---
 
 ## License
 
-This project is developed for the Foundations of Applied Machine Learning Internship Program (2026).
+This project is developed as part of the Foundations of Applied Machine Learning Internship Program (2026).
 
+For educational and academic purposes only.
