@@ -66,7 +66,7 @@ The pipeline below illustrates the end-to-end workflow of ContextHub, beginning 
 
 ## Architecture Diagram
 
-![ContextHub Architecture](images/architecture.png)
+![ContextHub Architecture](architecture.png)
 
 ### Pipeline Stages
 
