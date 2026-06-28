@@ -1,6 +1,6 @@
 # ContextHub
 
-### Intelligent Document Question Answering System using Retrieval-Augmented Generation (RAG)
+### AI-Powered Knowledge Workspace using Retrieval-Augmented Generation (RAG)
 
 ---
 
@@ -10,154 +10,229 @@
 
 **Segment:** Foundations of Applied Machine Learning
 
-**Problem Statement:** I2 – Document Q&A
+**Problem Statement:** I2 – Document Q&A (Official Catalog Problem)
 
 **Internship Duration:** 22 June 2026 – 26 July 2026
 
 ---
 
-## Project Status
+# Project Status
 
-🚧 Currently in the Design and Planning Phase
-
----
-
-## Project Overview
-
-ContextHub is a Retrieval-Augmented Generation (RAG) based document intelligence platform that enables users to upload documents and ask natural language questions about their content.
-
-Instead of manually searching through lengthy notes, textbooks, research papers, or technical documents, users can simply ask questions and receive accurate, context-aware answers supported by citations from the original documents.
-
-The system combines semantic retrieval techniques with Large Language Models (LLMs) to provide reliable responses while reducing hallucinations and improving answer quality.
+🚧 **Currently in Development (Week 1 – Foundation & Document Processing)**
 
 ---
 
-## Problem Statement
+# Project Vision
 
-Large documents often contain valuable information that is difficult to locate quickly.
+ContextHub is an AI-powered Knowledge Workspace that transforms static documents into a connected, searchable, and intelligent knowledge base.
 
-Traditional keyword-based search systems require users to manually browse multiple pages to find relevant information. This process can be time-consuming and inefficient, especially when dealing with large document collections.
+Unlike traditional document search systems, ContextHub enables users to organize multiple documents into a unified workspace where they can search semantically, ask natural language questions, discover relationships between concepts, and receive citation-backed responses generated through Retrieval-Augmented Generation (RAG).
 
-ContextHub aims to solve this problem by transforming static documents into an interactive knowledge platform where users can ask questions and receive direct, citation-backed answers generated from the uploaded documents.
+Rather than functioning as a simple PDF chatbot, ContextHub is designed as a foundation for intelligent document understanding and personal knowledge management.
 
 ---
 
-## Key Features
+# Problem Statement
+
+Students, researchers, and professionals regularly work with notes, textbooks, research papers, technical documentation, and reports.
+
+Finding relevant information across large document collections is often slow, repetitive, and inefficient.
+
+Traditional keyword search cannot understand the meaning or context of a user's question.
+
+ContextHub addresses this challenge by converting documents into an intelligent knowledge workspace where information can be searched semantically and explored through AI-powered interactions.
+
+---
+
+# Core Features
 
 ### Current Features
 
-* Document upload
-* Text extraction from documents
-* Semantic search
-* Natural language question answering
-* Citation-backed responses
-
-### Planned Features
-
-* Multi-document comparison
-* Document collections and organization
-* Improved retrieval quality
-* Evaluation framework for response quality
-* Cloud deployment
-* Enhanced user experience
+* Upload PDF documents
+* Extract text from documents
+* Semantic document retrieval
+* Citation-backed AI question answering
+* Multi-document knowledge workspace
+* Natural language search
 
 ---
 
-## Proposed Architecture
+# Planned Features
+
+### AI Workspace
+
+* AI Chat with Documents
+* Smart Notes Generation
+* Flashcard Generator
+* Quiz Generator
+* Document Summarization
+
+### Knowledge Intelligence
+
+* Cross-document semantic search
+* Knowledge graph visualization
+* Related concept discovery
+* Multi-document comparison
+* Persistent knowledge base
+
+### Analytics
+
+* Document insights dashboard
+* Topic extraction
+* Knowledge coverage analysis
+* Learning progress tracking
+
+### Deployment
+
+* Streamlit web application
+* Public cloud deployment
+* Performance evaluation framework
+
+---
+
+# High-Level Architecture
 
 ```text
-Document Upload
-        ↓
-Text Extraction
-        ↓
-Chunking
-        ↓
-Embedding Generation
-        ↓
-Vector Database
-        ↓
-Retriever
-        ↓
-Large Language Model (LLM)
-        ↓
-Answer + Citations
+                User Uploads Documents
+                         │
+                         ▼
+                 Document Processing
+         (PDF Extraction + Cleaning)
+                         │
+                         ▼
+                    Text Chunking
+                         │
+                         ▼
+              Embedding Generation
+                         │
+                         ▼
+               ChromaDB Vector Store
+                         │
+                         ▼
+                 Semantic Retrieval
+                         │
+                         ▼
+          Retrieval-Augmented Generation
+                  (Large Language Model)
+                         │
+                         ▼
+     AI Workspace (Chat • Search • Notes • Quiz)
 ```
 
 ---
 
-## Technology Stack
+# Technology Stack
 
 | Component            | Technology                   |
 | -------------------- | ---------------------------- |
 | Programming Language | Python                       |
 | Frontend             | Streamlit                    |
-| Document Processing  | PyPDF2                       |
+| Document Processing  | PyPDF2, pdfplumber           |
 | Framework            | LangChain                    |
-| Embeddings           | Sentence Transformers        |
+| Embedding Model      | Sentence Transformers        |
 | Vector Database      | ChromaDB                     |
 | Large Language Model | OpenAI GPT / Open Source LLM |
 | Version Control      | Git & GitHub                 |
 
 ---
 
-## Repository Structure
+# Repository Structure
 
 ```text
 ContextHub/
 │
+├── app/
+├── src/
+├── data/
+│   ├── raw/
+│   └── processed/
 ├── docs/
-│   └── design_doc.md
-│
+│   ├── design_doc.md
+│   └── images/
+├── tests/
+├── requirements.txt
+├── .env.example
 ├── .gitignore
-│
 └── README.md
 ```
 
 ---
 
-## Expected Learning Outcomes
+# Development Roadmap
 
-Through this project, I aim to learn:
+### Phase 1 – Document Processing
+
+* PDF upload
+* Text extraction
+* Chunking
+* Metadata generation
+
+### Phase 2 – Retrieval
+
+* Sentence embeddings
+* Vector database
+* Semantic retrieval
+* Citation generation
+
+### Phase 3 – AI Workspace
+
+* Conversational document chat
+* Multi-document search
+* Smart notes
+* Summarization
+* Flashcards
+* Quiz generation
+
+### Phase 4 – Knowledge Intelligence
+
+* Knowledge graph
+* Cross-document relationships
+* Concept discovery
+* Document comparison
+
+### Phase 5 – Deployment
+
+* Streamlit interface
+* Performance evaluation
+* Cloud deployment
+* User testing
+
+---
+
+# Expected Learning Outcomes
+
+Through this project, I aim to gain practical experience with:
 
 * Retrieval-Augmented Generation (RAG)
 * Large Language Models (LLMs)
+* Semantic Search
+* Information Retrieval
 * Embedding Models
 * Vector Databases
-* Information Retrieval
 * Prompt Engineering
-* Evaluation of AI Systems
-* Deployment using Streamlit
-* End-to-End AI Application Development
+* AI Application Development
+* Streamlit Deployment
+* End-to-End Machine Learning Systems
 
 ---
 
-## What I Learned This Week
-
-* Learned the difference between traditional search and semantic retrieval.
-* Understood the fundamentals of Retrieval-Augmented Generation (RAG).
-* Explored how embeddings convert text into vector representations.
-* Studied the role of vector databases in efficient document retrieval.
-* Finalized the project scope and high-level system architecture.
-* Selected the technology stack and development roadmap.
-
----
-
-## Future Scope
+# Future Scope
 
 Potential future enhancements include:
 
 * OCR support for scanned documents
 * Voice-based document interaction
-* Knowledge graph integration
-* Agentic RAG workflows
-* Personalized AI learning assistants
 * Multi-modal document understanding
-* Fine-tuned domain-specific models
+* Knowledge graph reasoning
+* Personalized AI learning assistant
+* Agentic RAG workflows
+* Domain-specific AI assistants
+* Enterprise document intelligence
 
 ---
 
-## License
+# License
 
-This project is developed as part of the Foundations of Applied Machine Learning Internship Program (2026).
+This project is developed as part of the **Foundations of Applied Machine Learning Internship Program (2026).**
 
-For educational and academic purposes only.
+It is intended for educational, academic, and portfolio purposes.
